@@ -1,5 +1,5 @@
 <template>
-  <employee-list-presentation></employee-list-presentation>
+  <employee-list-presentation :employees="employees"></employee-list-presentation>
 </template>
 
 <script lang="ts">
@@ -9,6 +9,11 @@ export default defineComponent({
     name:"EmployeeListContainer",
     components:{
         EmployeeListPresentation
+    },
+    data(){
+      return{
+        employees:[]
+      }
     }
 })
 </script>
