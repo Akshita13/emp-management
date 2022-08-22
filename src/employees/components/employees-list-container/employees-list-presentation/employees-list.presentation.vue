@@ -8,36 +8,37 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th style="width: 30%">Name</th>
-          <th style="width: 30%">Email</th>
-          <th style="width: 30%">Role</th>
-          <th style="width: 10%"></th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Technology</th>
+          <th>Salary</th>
+          <th>Joing Date</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(employee,index) in employees" :key="index">
-          <td>{{ employee.title }} {{ employee.firstName }} {{ employee.lastName }}</td>
-          <td>{{ employee.email }}</td>
-          <td>{{ employee.role }}</td>
+          <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+          <td>{{ employee.gender }}</td>
+          <td>{{ employee.technology }}</td>
+          <td>{{ employee.salary }}</td>
+          <td>{{ employee.joiningDate }}</td>
           <td style="white-space: nowrap">
-            <a routerLink="edit/{{employee.id}}" class="btn btn-sm btn-primary mr-1"
-              >Edit</a
+            <button @click="editEmployee(employee.id)" class="btn btn-sm btn-primary mr-1"
+              >Edit</button
             >
-            <button
-              (click)="deleteEmployee(employee.id)"
-              class="btn btn-sm btn-danger btn-delete-employee"
-              [disabled]="employee.isDeleting"
-            >
-              <span
+            <button class="btn btn-sm btn-danger btn-delete-employee" @click="deleteEmployee(employee.id)">
+            <!-- [disabled]="employee.isDeleting" -->
+              <!-- <span
                 v-if="employee.isDeleting"
                 class="spinner-border spinner-border-sm"
-              ></span>
-              <span v-if="!employee.isDeleting">Delete</span>
+              ></span> -->
+              <!-- <span v-if="!employee.isDeleting">Delete</span> -->
+              <span>Delete</span>
             </button>
           </td>
         </tr>
         <tr v-if="employees.length==0">
-          <td colspan="4" class="text-center">
+          <td colspan="6" class="text-center">
             <!-- <span class="spinner-border spinner-border-lg align-center"></span> -->
             <p>No records added</p>
           </td>
@@ -61,6 +62,9 @@ export default defineComponent({
       type:Array as any
     },
   },
+  emits: [
+    "deleteEmployee"
+  ],
   beforeCreate() {
     console.log("beforeCreate hook called");
   },
@@ -85,7 +89,16 @@ export default defineComponent({
   // destroyed() {
   //    console.log('destroyed hook called')
   // }
+  methods:{
+    deleteEmployee(id:any){
+      this.$emit("deleteEmployee",id)
+    },
+    editEmployee(empId:any){
+      this.$router.push({
+            name: "EditEmployeeFormContainer",
+            params: { id: empId },
+          });
+    }
+  }
 });
 </script>
-
-
