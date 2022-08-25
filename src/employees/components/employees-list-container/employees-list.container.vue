@@ -57,7 +57,7 @@ export default defineComponent({
           res.forEach((emp:any) => {
             emp.gender=emp.gender==1 ? 'Male' : 'Female'
             emp.salary = this.maskNumericIntoSeperator(emp.salary.toString());
-            emp.joiningDate = this.setDate(emp.joiningDate)
+            // emp.joiningDate = this.setDate(emp.joiningDate)
           });
           this.employees = res;
         }
